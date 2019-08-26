@@ -1,6 +1,6 @@
-[toc]
+[TOC]
 
-# 数据
+# 基础知识
 ## 变量
 
 1. 变量名不能以数字开头
@@ -672,7 +672,7 @@ ValueError: list.remove(x): x not in list
 [3, 2, 1]
 ```
  注意到 reverse 修改列表，但不返回任何值（与 remove 和 sort 等方法一样）。
- 
+
 2. sort（），用于对列表就地排序。就意味着直接对原列表进行修改，而不是返回排序后的列表的副本
 
 ```python
@@ -1196,10 +1196,131 @@ small = x if x<y else y
 
 ## 循环
 
+else 可以在while和for循环中运用，else和while或for搭配使用，不再是条件判断的含义。而是当while条件不成立时，直接跳出while循环，执行else输出
+
+### while循环
+
+```python
+while :
+	if expression: break
+	if expression: continue
+	statements
+else
+	statements	
+```
+
+### for循环
+
+```python
+for variable in sequence:
+	if expression: break
+	if expression: continue
+    statements
+else:
+    statements
+```
 
 # 函数(未完待续)
 
+## 参数
+
+### 形参和实参
+- 参数从调用角度来说，分为形式参数（parameter）和实际参数（argument）。python中，形参是指函数创建和定义过程中小括号里的参数，而实参是指函数调用的过程中传递进来的参数。
+
+### 函数文档
+- 函数文档是为了让别人更好的理解函数的功能
+
+```python
+def exchangeRate(dollar):
+	"""美元->人民币
+	汇率定为6.5
+	"""
+	return dollar * 6.5
+```
+- 函数文档字符串可以通过特殊属性__foc__获取。
+
+```python
+>>> exchangeRate.__doc__
+'美元->人民币\n\t汇率定为6.5\n\t'
+```
+- 还可以通过help()来查看函数的文档
+
+```python
+>>> help(exchangeRate)
+Help on function exchangeRate in module __main__:
+
+exchangeRate(dollar)
+    美元->人民币
+    汇率定为6.5
+```
+### 关键字参数
+普通的参数叫位置参数，根据参数的前后位置向函数中传入参数。关键字参数是在传入实参时制定形参的变量名。当参数越来多时，关键字参数的作用也就越来越大
+
+```python
+>>> def whoIsFather(son,father):
+	print(son+"和"+father + "中,年长的"+ father +"是爸爸！")
+
+	
+>>> whoIsFather("李小明","李大明")
+李小明和李大明中,年长的李大明是爸爸！
+>>> whoIsFather("李大明","李小明")
+李大明和李小明中,年长的李小明是爸爸！
+>>> whoIsFather(father = "李大明", son = "李小明")
+李小明和李大明中,年长的李大明是爸爸！
+```
+### 默认参数
+- 默认参数是在函数定义的时候赋予了默认值的参数
+
+```python
+>>> def whoIsFather(son = "王小明", father = "王大明"):
+	print(son+"和"+father + "中,年长的"+ father +"是爸爸！")
+
+	
+>>> whoIsFather()
+李小明和李大明中,年长的李大明是爸爸！
+
+```
+- 默认参数必须在关键字参数和位置参数前面，否则会报错
+
+```python
+>>> def whoIsFather(son = "王小明", father ):
+	print(son+"和"+father + "中,年长的"+ father +"是爸爸！")
+	
+SyntaxError: non-default argument follows default argument
+```
+
+### 收集参数
+-收集参数就是参数前面多一个*号
+```python
+>>> def test(*params):
+	print("共有%d个参数传入",len(params))
+	print("第1个参数是",params[0])
+
+	
+>>> test(1,2,3,23,4)
+共有%d个参数传入 5
+第1个参数是 1
+```
+- Python就是吧标志为手机参数的参数们打包成一个组。如果在手机参数后面还有其他参数，在调用函数的时候就应该使用管架子参数来指定，否则Python就会把参数都列入收集参数，甚至报错。
+- 如果需要将一个列表传入收集参数*param中，那么调用test(a)便会出错，此时在参数钱加个星号就可使用了
+- 加了两个星号 ** 的参数会以字典的形式导入。
+
+```python
+# 可写函数说明
+def printinfo( arg1, **vardict ):
+   "打印任何传入的参数"
+   print ("输出: ")
+   print (arg1)
+   print (vardict)
+ 
+# 调用printinfo 函数
+>>>printinfo(1, a=2,b=3)
+1
+{'a': 2, 'b': 3}
+```
 # 异常处理(未完待续)
+
+
 
 # 类和对象(未完待续)
 
